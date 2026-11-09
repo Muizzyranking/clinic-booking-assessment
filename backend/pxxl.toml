@@ -1,29 +1,8 @@
-# Pxxl settings for the API. Deploy this folder, not the repo root:
-#   Dashboard > Build Configuration > Base directory = backend
-#   Source = Dockerfile  (Pxxl then skips framework detection and builds ./Dockerfile)
-#
-# Only the keys below appear in Pxxl's own examples. Anything not listed here
-# (Dockerfile path, health check path, volumes) is set in the dashboard.
 version = 1
 name = "clinic-booking-api"
 domainChoice = "pxxl.pro"
 port = 8000
 
-# --- Alternative if your plan has no Dockerfile source -----------------------
-# Pxxl detects Python from pyproject.toml. Delete the three lines above the
-# comment block, then uncomment these. Not tested: this repo needs Python 3.13,
-# so the Dockerfile is the safer route.
-#
-# framework = "fastapi"
-# installCommand = "pip install uv && uv sync --locked --no-dev"
-# startCommand = "uv run uvicorn app.main:app --host 0.0.0.0 --port $PORT"
-
-# --- Set in Dashboard > Secrets before the first build ------------------------
-#   API_KEY          required. Also the dashboard password.
-#   CORS_ORIGINS     your Vercel URL, e.g. https://clinic-booking.vercel.app
-#   SEED_ON_STARTUP  true (default) fills an empty database with demo data
-#   DATABASE_PATH    /data/clinic.db  (matches the volume below)
-#
-# --- Set in Dashboard > Compute & Scaling -------------------------------------
-#   Add Volume, mount path /data. Without it the SQLite file is wiped on every
-#   deploy or restart, and bookings with it.
+framework = "fastapi"
+installCommand = "pip install uv && uv sync --locked --no-dev"
+startCommand = "uv run uvicorn app.main:app --host 0.0.0.0 --port $PORT"
