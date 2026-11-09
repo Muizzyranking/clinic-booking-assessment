@@ -6,7 +6,8 @@ from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
-DB_PATH = Path(__file__).resolve().parent.parent / "clinic.db"
+# DB_PATH = Path(__file__).resolve().parent.parent / "clinic.db"
+DB_PATH = Path("/tmp/clinic.db")
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS slots (
