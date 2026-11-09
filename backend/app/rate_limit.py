@@ -57,7 +57,7 @@ def rate_limited(
     def decorator(func):
         @wraps(func)
         def wrapper(self, *args, **kwargs):
-            bucket = key(self, *args, **kwargs)
+            bucket = key(*args, **kwargs)
             if bucket is not None:
                 self.rate_limiter.hit(bucket, limit=limit, window=window)
             return func(self, *args, **kwargs)
