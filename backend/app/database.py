@@ -4,9 +4,9 @@ from collections.abc import Generator
 from contextlib import contextmanager
 from pathlib import Path
 
-from app.config import settings
-
 logger = logging.getLogger(__name__)
+
+DB_PATH = Path(__file__).resolve().parent.parent / "clinic.db"
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS slots (
@@ -50,7 +50,7 @@ CREATE INDEX IF NOT EXISTS ix_hits_time ON rate_limit_hits (hit_at);
 """
 
 
-def connect(path: str) -> sqlite3.Connection:
+def connect(path=DB_PATH) -> sqlite3.Connection:
     # isolation_level=None -> autocommit; transactions are opened explicitly.
     conn = sqlite3.connect(
         path, timeout=30, isolation_level=None, check_same_thread=False
@@ -59,9 +59,7 @@ def connect(path: str) -> sqlite3.Connection:
     return conn
 
 
-def init_db(path: str) -> None:
-    if path != ":memory:":
-        Path(path).parent.mkdir(parents=True, exist_ok=True)
+def init_db(path=DB_PATH) -> None:
     conn = connect(path)
     try:
         conn.execute("PRAGMA journal_mode=WAL")
@@ -69,11 +67,11 @@ def init_db(path: str) -> None:
         conn.executescript(SCHEMA)
     finally:
         conn.close()
-    logger.info("Database ready at %s", path)
+    logger.info("Database ready at %s", DB_PATH)
 
 
 def get_db() -> Generator[sqlite3.Connection]:
-    conn = connect(settings.database_path)
+    conn = connect()
     try:
         yield conn
     finally:

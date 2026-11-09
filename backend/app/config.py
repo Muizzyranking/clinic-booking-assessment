@@ -14,7 +14,6 @@ class Settings(BaseSettings):
     )
 
     api_key: str = Field(min_length=1)
-    database_path: str = "data/clinic.db"
     log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"] = "INFO"
     rate_limit_max_attempts: int = 5
     rate_limit_window_seconds: int = 60

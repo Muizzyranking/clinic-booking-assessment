@@ -274,8 +274,8 @@ def main() -> None:
     args = parser.parse_args()
 
     configure_logging(settings.log_level)
-    init_db(settings.database_path)
-    conn = connect(settings.database_path)
+    init_db()
+    conn = connect()
     try:
         if args.force:
             summary = seed_database(conn, rng_seed=args.seed)

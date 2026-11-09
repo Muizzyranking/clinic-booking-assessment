@@ -29,9 +29,9 @@ logger = logging.getLogger(__name__)
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None]:
     configure_logging(settings.log_level)
-    init_db(settings.database_path)
+    init_db()
     if settings.seed_on_startup:
-        conn = connect(settings.database_path)
+        conn = connect()
         try:
             seed_if_empty(conn, rng_seed=settings.seed_random_seed)
         finally:
