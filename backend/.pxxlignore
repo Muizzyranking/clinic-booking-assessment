@@ -1,0 +1,23 @@
+# Keeps the upload small and secrets out of the image.
+# Pxxl's docs don't mention this file, so backend/.dockerignore carries the same list.
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Local data and secrets
+data/
+*.db
+*.db-wal
+*.db-shm
+.env
+.env.*
+
+# Not needed to run the API
+tests/
+scripts/
+.git/
+.gitignore
+README.md
