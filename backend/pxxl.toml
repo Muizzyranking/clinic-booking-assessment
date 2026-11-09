@@ -4,5 +4,5 @@ domainChoice = "pxxl.pro"
 port = 8000
 
 framework = "fastapi"
-installCommand = "pip install uv && uv sync --locked --no-dev"
-startCommand = "uv run uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+installCommand = "pip install -r requirements.txt"
+startCommand = "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
